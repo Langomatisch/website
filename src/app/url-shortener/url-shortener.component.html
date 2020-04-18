@@ -1,1 +1,5 @@
-<p>url-shortener works!</p>
+<div class="grid-container">
+  <li *ngFor="let url of listUrls">
+    <span>{{url['shortUrl']}}</span>
+  </li>
+</div>

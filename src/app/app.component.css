@@ -1,3 +1,6 @@
 .abc {
   alignment: center;
 }
+.noselect {
+   user-select: none;
+}
