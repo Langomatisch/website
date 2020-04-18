@@ -10,4 +10,7 @@ export class AppComponent {
 
   content: any = 'Work in Progess';
   otherSite: boolean = false;
+
+  openSnackbar(message: string) {
+  }
 }

@@ -1,4 +1,24 @@
-.grid-container {
-  margin: 20px;
+.option {
+
 }
 
+.delete {
+  margin-left: 85%;
+}
+
+.output {
+  background-color: #c3c3c3;
+}
+
+fa-icon {
+  padding-left: .5%;
+}
+
+.grid {
+  color: red;
+}
+
+mat-card {
+  width: 50%;
+  height: 50%;
+}

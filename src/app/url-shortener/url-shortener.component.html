@@ -1,5 +1,28 @@
-<div class="grid-container">
-  <li *ngFor="let url of listUrls">
-    <span>{{url['shortUrl']}}</span>
-  </li>
-</div>
+<mat-grid-list class='grid' cols="1" rowHeight="3:1">
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-title>Delete</mat-card-title>
+      <mat-form-field class='option'>
+        <mat-label>Links</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let url of listUrls" [value]="url['urlCode']"
+                      (focus)="selected = url['longUrl']; refreshSite()">
+            {{url['urlCode']}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div >
+        <output class=output value="{{selected}}"></output>
+        <fa-icon [icon]="icon" size="1x" [cdkCopyToClipboard]="selected" (click)="showSnackbar('In die Zwischenablage kopiert');"></fa-icon>
+      </div>
+      <br>
+      <button mat-button color="warn" class='delete'>delete</button>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+

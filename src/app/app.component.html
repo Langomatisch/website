@@ -1,14 +1,16 @@
-<div>
-  <mat-toolbar>
-    <span class="noselect" routerLink="/" (click)="otherSite = false">{{title}}</span>
-    <a mat-button href="http://track.langomatisch.de">MC Tracking</a>
-    <a mat-button routerLink="/urlshortener" (click)="otherSite = true">URL-Shortener</a>
-  </mat-toolbar>
-</div>
+<div class = 'lame'>
+  <div>
+    <mat-toolbar>
+      <span class="noselect" routerLink="/" (click)="otherSite = false">{{title}}</span>
+      <a mat-button href="http://track.langomatisch.de">MC Tracking</a>
+      <a mat-button routerLink="/urlshortener" (click)="otherSite = true; openSnackbar('test')">URL-Shortener</a>
+    </mat-toolbar>
+  </div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
-<div class="abc" [hidden]="otherSite">
-  <span>{{content}}</span>
+  <div class="abc" [hidden]="otherSite">
+    <span>{{content}}</span>
+  </div>
 </div>
 <!--  //"src/styles.css" -->

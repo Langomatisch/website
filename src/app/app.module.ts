@@ -13,6 +13,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {LayoutModule} from '@angular/cdk/layout';
 import {UrlShortenerComponent} from './url-shortener/url-shortener.component';
 import {HttpClientModule} from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatListModule} from '@angular/material/list';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -36,7 +42,13 @@ import {HttpClientModule} from '@angular/common/http';
         path: 'urlshortener',
         component: UrlShortenerComponent
       }
-      ])
+    ]),
+    MatFormFieldModule,
+    MatSelectModule,
+    MatListModule,
+    FontAwesomeModule,
+    ClipboardModule, MatSnackBarModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
