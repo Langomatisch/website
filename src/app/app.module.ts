@@ -18,12 +18,17 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from './environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UrlShortenerComponent,
+    UrlShortenerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,12 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatListModule,
     FontAwesomeModule,
-    ClipboardModule, MatSnackBarModule
-
+    ClipboardModule,
+    MatSnackBarModule,
+    AngularFireModule.initializeApp(environment.firebase, 'langomatisch-de'),
+    AngularFireAuthModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,11 @@
-.lame {
-  background-color: #c3c3c3;
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.username {
+  font-size: 75%;
+  padding-right: 3.5%;
 }

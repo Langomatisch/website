@@ -1,9 +1,10 @@
 import {Component, NgModule} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {faCopy} from '@fortawesome/free-solid-svg-icons';
-import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Url} from 'url';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-url-shortener',
@@ -12,49 +13,32 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class UrlShortenerComponent {
 
-  selected;
-  test = '';
-  icon = faCopy;
-
-  listUrls: {}[] = [
-    {
-      date: 'Tue Apr 14 2020 23:11:21 GMT+0200 (Central European Summer Time)',
-      _id: '5e9626f9bb8b6f7d0aa2a1f6',
-      longUrl: 'https://amazon.com',
-      shortUrl: 'http://lango.link/zbySb6ugP',
-      urlCode: 'zbySb6ugP'
-    },
-    {
-      date: 'Tue Apr 14 2020 23:15:00 GMT+0200 (Central European Summer Time)',
-      _id: '5e9627d4bb8b6f7d0aa2a1f7',
-      longUrl: 'http://img.langomatisch.de/putty_OUOPkUVtOW.png',
-      shortUrl: 'http://lango.link/Aql7lNzc9',
-      urlCode: 'Aql7lNzc9',
-    },
-    {
-      date: 'Tue Apr 14 2020 23:21:18 GMT+0200 (Central European Summer Time)',
-      _id: '5e96294ebb8b6f7d0aa2a1fd',
-      longUrl: 'https://www.instagram.com/diesermatthew/',
-      shortUrl: 'http://lango.link/instagram',
-      urlCode: 'instagram',
-      __v: 0
-    }];
-
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-    this.getListOfUrls().subscribe( value => {
-      this.listUrls.push(value);
-      console.log(`got ${value}`);
+    this.getListOfUrls().subscribe(value => {
+      console.log(`got ${value.length} entries`);
+      // update
+      this.listUrls = value;
     });
   }
 
+  appComponent = AppComponent.appComponent;
+  selected: Url;
+  icon = faCopy;
 
-  getListOfUrls(): Observable<{}[]> {
-    const header = new HttpHeaders().set('Access-Control-Allow-Origin', '*').set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.get<{}[]>('http://lango.link/api/url/list', {headers: header});
-  }
+  listLink = 'http://lango.link/api/url/list';
+  deleteLink = 'http://lango.link/api/url/delete';
+  createLink = 'http://lango.link/api/url/shorten';
+  customLink = 'http://lango.link/api/url/custom';
+  // link = 'http://localhost/api/url/list';
 
-  refreshSite() {
-    console.log('refresh');
+  listUrls: Url[] = [];
+
+  createCustomUrl;
+  createLongUrl;
+  lastCustomCreatedUrl: Url;
+
+  getListOfUrls(): Observable<Url[]> {
+    return this.http.get<Url[]>(this.listLink);
   }
 
   showSnackbar(message: string) {
@@ -62,5 +46,32 @@ export class UrlShortenerComponent {
       duration: 2000,
     });
   }
+
+  deleteUrl(selected: Url) {
+    return this.http.get<DeleteResponse>(this.deleteLink, {params: new HttpParams().set('urlCode', selected.urlCode)}).subscribe(value => {
+      console.log(value);
+      const deletedCount = value.deletedCount;
+      this.showSnackbar(`deleted ${deletedCount} entries`);
+      this.selected = null;
+      const index = this.listUrls.indexOf(selected);
+      this.listUrls.splice(index, 1);
+    });
+  }
+
+  createUrl() {
+    console.log(`creating url with customCode ${this.createCustomUrl} and link: ${this.createLongUrl}`);
+    return this.http.post<Url>(this.createCustomUrl ? this.customLink : this.createLink, {
+      longUrl: this.createLongUrl,
+      urlCode: this.createCustomUrl
+    }, {responseType: 'json'} ).subscribe(value => {
+      this.lastCustomCreatedUrl = value.body;
+    });
+  }
 }
 
+// tslint:disable-next-line:no-empty-interface
+interface DeleteResponse {
+
+  deletedCount: number;
+
+}

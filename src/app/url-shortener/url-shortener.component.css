@@ -18,6 +18,11 @@ fa-icon {
   color: red;
 }
 
+.loginPls {
+  font-size: x-large;
+  font-weight: bold;
+}
+
 mat-card {
   width: 50%;
   height: 50%;

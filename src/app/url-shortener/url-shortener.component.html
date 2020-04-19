@@ -1,28 +1,40 @@
-<mat-grid-list class='grid' cols="1" rowHeight="3:1">
+<mat-grid-list *ngIf="appComponent.fireAuth.user | async as user; else showDiv" class='grid' cols="1" rowHeight="3:1">
   <mat-grid-tile>
     <mat-card>
       <mat-card-title>Delete</mat-card-title>
       <mat-form-field class='option'>
         <mat-label>Links</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let url of listUrls" [value]="url['urlCode']"
-                      (focus)="selected = url['longUrl']; refreshSite()">
+        <mat-select [value]="selected ">
+          <mat-option *ngFor="let url of listUrls" [value]="listUrls" (focus)="selected = url">
             {{url['urlCode']}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div >
-        <output class=output value="{{selected}}"></output>
-        <fa-icon [icon]="icon" size="1x" [cdkCopyToClipboard]="selected" (click)="showSnackbar('In die Zwischenablage kopiert');"></fa-icon>
+      <div>
+        <output class=output [hidden]="!selected" [value]="selected ? selected['longUrl'] : ''"></output>
+        <fa-icon [icon]="icon" size="1x" [hidden]="!selected" [cdkCopyToClipboard]="selected ? selected['longUrl'] : ''"
+                 (click)="showSnackbar('In die Zwischenablage kopiert');"></fa-icon>
       </div>
       <br>
-      <button mat-button color="warn" class='delete'>delete</button>
+      <button mat-button color="warn" class='delete' (click)="deleteUrl(selected);">delete</button>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile>
     <mat-card>
+      <mat-card-title>Create</mat-card-title>
+      <mat-form-field>
+        <input matInput [(ngModel)]="createCustomUrl" placeholder="CustomCode">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="url" [(ngModel)]="createLongUrl" placeholder="Link" required="required">
+      </mat-form-field>
+      <button mat-flat-button (click)="createUrl()">create</button>
+      <output [hidden]="!lastCustomCreatedUrl" [value]="lastCustomCreatedUrl"></output>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
+<ng-template #showDiv>
+  <span class="loginPls">Bitte log dich ein!</span>
+</ng-template>
 
 
