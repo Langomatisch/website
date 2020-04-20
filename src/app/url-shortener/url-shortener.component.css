@@ -21,6 +21,9 @@ fa-icon {
 .loginPls {
   font-size: x-large;
   font-weight: bold;
+  color: white;
+  stroke: black;
+  stroke-width: 20px;
 }
 
 mat-card {

@@ -13,7 +13,7 @@ export class AppComponent {
     AppComponent.appComponent = this;
   }
 
-  static appComponent;
+  static appComponent: AppComponent;
   title = 'website';
 
   content: any = 'Work in Progess';

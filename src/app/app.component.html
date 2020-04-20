@@ -1,5 +1,5 @@
 <div>
-  <mat-toolbar>
+  <mat-toolbar class = "toolbar">
     <span class="noselect" routerLink="/" (click)="otherSite = false">{{title}}</span>
     <a mat-button href="http://track.langomatisch.de">MC Tracking</a>
     <a mat-button routerLink="/urlshortener" (click)="otherSite = true;">URL-Shortener</a>
@@ -19,13 +19,13 @@
   <div [hidden]="showLoginField === false">
     <mat-card>
       <mat-card-title>Login</mat-card-title>
-      <mat-form-field>
+      <form>
         <input matInput type="email" placeholder="Email" required='required' [(ngModel)]="email"
                (keyup.enter)="login()">
         <input matInput type="password" placeholder="Password" required='required' [(ngModel)]="password"
                (keyup.enter)="login()">
         <button mat-flat-button color="accent" (click)="openLoginField()">Login</button>
-      </mat-form-field>
+      </form>
     </mat-card>
   </div>
 </div>

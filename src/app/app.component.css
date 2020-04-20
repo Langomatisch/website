@@ -9,3 +9,8 @@
   font-size: 75%;
   padding-right: 3.5%;
 }
+
+.toolbar {
+  box-shadow: black;
+  scrollbar-darkshadow-color: black;
+}
