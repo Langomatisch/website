@@ -25,10 +25,11 @@ export class UrlShortenerComponent {
   selected: Url;
   icon = faCopy;
 
-  listLink = 'http://lango.link/api/url/list';
-  deleteLink = 'http://lango.link/api/url/delete';
-  createLink = 'http://lango.link/api/url/shorten';
-  customLink = 'http://lango.link/api/url/custom';
+  baseLink = 'http://api.langomatisch.de';
+  listLink = this.baseLink + '/api/url/list';
+  deleteLink = this.baseLink + '/api/url/delete';
+  createLink = this.baseLink + '/api/url/shorten';
+  customLink = this.baseLink + '/api/url/custom';
   // link = 'http://localhost/api/url/list';
 
   listUrls: Url[] = [];
@@ -63,7 +64,7 @@ export class UrlShortenerComponent {
     return this.http.post<Url>(this.createCustomUrl ? this.customLink : this.createLink, {
       longUrl: this.createLongUrl,
       urlCode: this.createCustomUrl
-    }, {responseType: 'json'} ).subscribe(value => {
+    }, {responseType: 'json'}).subscribe(value => {
       this.lastCustomCreatedUrl = value.body;
     });
   }
